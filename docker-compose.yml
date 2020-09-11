@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:11
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: meeting
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    expose:
+      - "5432"
+    ports:
+      - 5432:5432
+    networks:
+      - default
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ya@ya.ru
+      PGADMIN_DEFAULT_PASSWORD: 123
+    ports:
+      - 8080:80
+    depends_on:
+      - db
